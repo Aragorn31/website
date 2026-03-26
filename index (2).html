@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Akshat Vijayvargia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:   #f5edda;
+  --paper2:  #ede3c5;
+  --ink:     #1c1208;
+  --ink-dim: #5a4020;
+  --yellow:  #e8b800;
+  --blood:   #8b1a1a;
+  --gap:     4px;
+  --bdr:     2.5px solid var(--ink);
+  --fh: 'Bebas Neue', Impact, sans-serif;
+  --fb: 'Courier Prime', 'Courier New', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #1a1008; font-family: var(--fb); color: var(--ink); font-size: 14px; line-height: 1.6; min-height: 100vh; }
+.page { max-width: 1100px; margin: 0 auto; padding: var(--gap); display: flex; flex-direction: column; gap: var(--gap); min-height: 100vh; }
+
+/* PANEL */
+.panel { background: var(--paper); border: var(--bdr); padding: 20px 22px 18px; position: relative; }
+.panel.dark { background: var(--ink); color: var(--paper); }
+.panel.mid  { background: var(--paper2); }
+
+/* CAPTION */
+.caption { display: inline-block; background: var(--yellow); border: 2px solid var(--ink); padding: 3px 10px; font-family: var(--fb); font-size: 11px; font-style: italic; color: var(--ink); margin-bottom: 12px; line-height: 1.4; }
+.panel.dark .caption { background: var(--ink); border-color: var(--yellow); color: var(--yellow); }
+
+/* TYPE */
+.panel-title { font-family: var(--fh); font-size: clamp(28px, 5vw, 44px); letter-spacing: 0.04em; text-transform: uppercase; line-height: 0.95; color: var(--ink); }
+.panel.dark .panel-title { color: var(--paper); }
+.panel-sub { font-size: 13px; color: var(--ink-dim); margin-top: 6px; font-style: italic; }
+.panel.dark .panel-sub { color: rgba(245,237,218,0.6); }
+.body-text { font-size: 14px; color: var(--ink); line-height: 1.75; max-width: 600px; }
+.panel.dark .body-text { color: rgba(245,237,218,0.85); }
+.eyeline { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blood); margin-bottom: 8px; font-family: var(--fb); }
+.rule { height: 2px; background: var(--ink); margin: 14px 0; }
+.panel.dark .rule { background: rgba(245,237,218,0.2); }
+
+/* TAG */
+.tag { display: inline-block; padding: 2px 9px; border: 1.5px solid var(--ink); font-size: 10px; font-family: var(--fb); text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink); background: #fff; margin-right: 4px; margin-top: 8px; }
+.tag.yellow { background: var(--yellow); border-color: var(--ink); }
+.tag.red    { border-color: var(--blood); color: var(--blood); }
+.tag.solid  { background: var(--blood); border-color: var(--blood); color: var(--paper); }
+.panel.dark .tag        { border-color: rgba(245,237,218,0.4); color: var(--paper); }
+.panel.dark .tag.yellow { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+
+/* LIVE DOT */
+.live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--ink); margin-right: 5px; animation: liveblink 1.4s infinite; vertical-align: middle; position: relative; top: -1px; }
+@keyframes liveblink { 0%,100%{opacity:1;} 50%{opacity:0.15;} }
+
+/* STATUS DOT */
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); margin-right: 6px; animation: liveblink 2.5s infinite; vertical-align: middle; position: relative; top: -1px; }
+
+/* YELLOW BUTTON */
+.yellow-btn { display: inline-block; background: var(--yellow); border: 2px solid var(--ink); padding: 6px 16px; font-family: var(--fh); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; cursor: pointer; transition: background 0.1s, color 0.1s; margin-top: 12px; }
+.yellow-btn:hover { background: var(--ink); color: var(--yellow); }
+
+/* LINKS */
+a.ink-link { color: var(--blood); text-decoration: none; border-bottom: 1px solid var(--blood); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--fb); transition: opacity 0.1s; }
+a.ink-link:hover { opacity: 0.7; }
+.panel.dark a.ink-link { color: var(--yellow); border-color: var(--yellow); }
+.card.dark a.ink-link  { color: var(--yellow); border-color: var(--yellow); }
+
+/* HEADER */
+.header-name-panel { background: var(--paper); border: var(--bdr); padding: 24px 24px 20px; }
+.site-name { font-family: var(--fh); font-size: clamp(44px, 9vw, 80px); letter-spacing: 0.03em; text-transform: uppercase; line-height: 0.92; color: var(--ink); }
+.site-tagline { margin-top: 12px; font-size: 13px; font-style: italic; color: var(--ink-dim); max-width: 560px; line-height: 1.65; }
+.site-links { margin-top: 14px; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* NAV */
+.nav-bar { background: var(--paper2); border: var(--bdr); display: flex; flex-wrap: wrap; gap: 0; overflow: hidden; }
+.nav-btn { font-family: var(--fh); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 18px; background: transparent; border: none; border-right: 2px solid var(--ink); color: var(--ink-dim); cursor: pointer; transition: background 0.12s, color 0.12s; white-space: nowrap; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { background: rgba(28,18,8,0.07); color: var(--ink); }
+.nav-btn.active { background: var(--ink); color: var(--yellow); }
+
+/* SECTIONS — hidden by default, shown via JS */
+.section { display: none; flex-direction: column; gap: var(--gap); }
+
+/* GRIDS */
+.grid-2   { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.grid-3   { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); }
+.grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gap); }
+
+/* CARD */
+.card { background: var(--paper); border: var(--bdr); padding: 16px 16px 14px; }
+.card.dark { background: var(--ink); color: var(--paper); }
+.card.mid  { background: var(--paper2); }
+.card-eyeline { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blood); margin-bottom: 6px; font-family: var(--fb); }
+.card.dark .card-eyeline { color: rgba(232,184,0,0.7); }
+.card-title { font-family: var(--fh); font-size: 20px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); margin-bottom: 5px; line-height: 1.05; }
+.card.dark .card-title { color: var(--paper); }
+.card-body { font-size: 13px; color: var(--ink-dim); line-height: 1.7; }
+.card.dark .card-body { color: rgba(245,237,218,0.7); }
+
+/* LIST */
+.list-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid rgba(28,18,8,0.15); }
+.list-item:last-child { border-bottom: none; }
+.list-num { font-family: var(--fh); font-size: 20px; color: var(--blood); min-width: 28px; line-height: 1; flex-shrink: 0; }
+.list-title { font-family: var(--fh); font-size: 20px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); line-height: 1.05; margin-bottom: 4px; }
+.list-sub { font-size: 12px; font-style: italic; color: var(--ink-dim); margin-top: 3px; }
+.list-note { font-size: 13px; color: var(--ink-dim); margin-top: 4px; line-height: 1.7; }
+.list-tags { margin-top: 6px; }
+
+/* FOOTER */
+.footer { background: var(--ink); border: var(--bdr); padding: 12px 20px; display: flex; justify-content: flex-end; align-items: center; }
+.footer-text { font-family: var(--fb); font-size: 11px; color: rgba(245,237,218,0.4); letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .grid-2, .grid-2-1 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .nav-btn { font-size: 13px; padding: 9px 12px; }
+}
+@media (max-width: 420px) {
+  .grid-3 { grid-template-columns: 1fr; }
+  .nav-btn { font-size: 12px; padding: 8px 10px; }
+}
+
+/* ── FEATURE 1: INK TRAIL ── */
+.ink-drop {
+  position: fixed;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--ink);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  animation: inkfade 0.7s ease-out forwards;
+}
+@keyframes inkfade {
+  0%   { opacity: 0.35; transform: translate(-50%,-50%) scale(1); }
+  100% { opacity: 0;     transform: translate(-50%,-50%) scale(0.2); }
+}
+
+/* ── FEATURE 2: PANEL HOVER AGE ── */
+.card, .panel {
+  transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover, .panel:hover {
+  filter: sepia(0.18) brightness(0.97);
+  box-shadow: inset 0 0 0 1px rgba(28,18,8,0.08), 2px 2px 6px rgba(28,18,8,0.12);
+}
+
+/* ── FEATURE 3: TYPEWRITER ── */
+.site-name {
+  font-family: var(--fh);
+  font-size: clamp(44px, 9vw, 80px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 0.92;
+  color: var(--ink);
+}
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  background: var(--ink);
+  margin-left: 3px;
+  animation: cur-blink 0.7s step-end infinite;
+  vertical-align: baseline;
+  position: relative; top: -4px;
+}
+@keyframes cur-blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+/* ── FEATURE 9: READING TIMER ── */
+#reading-timer {
+  display: none;
+  font-family: var(--fb);
+  font-size: 11px;
+  color: rgba(245,237,218,0.35);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-right: auto;
+  animation: fadein 1s ease;
+}
+@keyframes fadein { from{opacity:0;} to{opacity:1;} }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header-name-panel">
+    <div class="site-name" id="site-name"></div>
+    <div class="site-tagline">
+      Creator. Bengaluru-based. Curious about business, psychology, and tech.
+      Systems thinker. Unhealthy consumer of books, music, and films.
+    </div>
+    <div class="site-links">
+      <a href="/cdn-cgi/l/email-protection#21404a524940550f57480f11111961464c40484d0f424e4c" class="ink-link">Email</a>
+      <a href="https://x.com/wowakshat" class="ink-link" target="_blank">Twitter</a>
+      <a href="https://www.linkedin.com/in/akshat-vijayvargia" class="ink-link" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav-bar">
+    <button class="nav-btn" onclick="switchTab('about')">About</button>
+    <button class="nav-btn" onclick="switchTab('projects')">Fun Projects</button>
+    <button class="nav-btn" onclick="switchTab('boring')">CV &amp; Work</button>
+    <button class="nav-btn" onclick="switchTab('books')">Books</button>
+    <button class="nav-btn" onclick="switchTab('courses')">Courses</button>
+  </nav>
+
+  <!-- ABOUT -->
+  <div class="section" id="section-about">
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-title">Who I Am</div>
+        <div class="rule"></div>
+        <div class="body-text">
+          Creator. Systems thinker. Curious about business, psychology, and tech —
+          and how the three collide. I spend my days in product and analytics at Razorpay,
+          finding signals in noise, owning roadmaps and making decisions that matter.<br><br>
+          Outside work: unhealthy consumer of books, music, and films. Based in Bengaluru.
+        </div>
+      </div>
+      <div class="panel dark">
+        <div class="caption">Right now</div>
+        <div class="panel-title" style="font-size:22px;">At a Glance</div>
+        <div class="rule"></div>
+        <div style="font-size:13px; line-height:2.1; color:rgba(245,237,218,0.85);">
+          <div><span style="color:var(--yellow);display:inline-block;min-width:80px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;">Location</span>Bengaluru</div>
+          <div><span style="color:var(--yellow);display:inline-block;min-width:80px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;">Day job</span>Razorpay</div>
+          <div><span style="color:var(--yellow);display:inline-block;min-width:80px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;">Status</span>Available <span class="status-dot"></span></div>
+          <div><span style="color:var(--yellow);display:inline-block;min-width:80px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;">Updated</span>March 2026</div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-eyeline">Currently building</div>
+        <div class="card-title">AI Automations</div>
+        <div class="card-body">Exploring how AI can eliminate the boring parts of work — and what becomes possible when it does. Claude skilled 30% of my job away already.</div>
+        <span class="tag yellow">Active</span>
+      </div>
+      <div class="card mid">
+        <div class="card-eyeline">Currently learning</div>
+        <div class="card-title">Distribution &amp; GTM</div>
+        <div class="card-body">Great products die quietly without distribution. Learning how the best ones get found.</div>
+        <span class="tag">Exploring</span>
+      </div>
+      <div class="card">
+        <div class="card-eyeline">What's next for me</div>
+        <div class="card-title">The Joy of Play</div>
+        <div class="card-body">Going to work for the love of the game. Deliberating between product and growth.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUN PROJECTS -->
+  <div class="section" id="section-projects">
+    <div class="panel mid">
+      <div class="caption">Things built out of curiosity, not obligation</div>
+      <div class="panel-title">Fun Projects</div>
+      <div class="panel-sub">Side work. Experiments that got out of hand.</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-eyeline">Web · AI</div>
+        <div class="card-title">Dandelion</div>
+        <div class="card-body">Designed to delight. Also — I was told making a good-looking dandelion was hard.</div>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <span class="tag yellow"><span class="live-dot"></span>Live</span>
+          <a href="https://dandelion-bloom.lovable.app" class="ink-link" target="_blank">Visit &#8594;</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-eyeline">Web · AI</div>
+        <div class="card-title">In the Mood For</div>
+        <div class="card-body">Movie recommendations based on your emotional mood — with solo and duo modes.</div>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <span class="tag yellow"><span class="live-dot"></span>Live</span>
+          <a href="https://inthemoodfor.lovable.app" class="ink-link" target="_blank">Visit &#8594;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CV & WORK -->
+  <div class="section" id="section-boring">
+    <div class="panel dark">
+      <div class="caption">The official version — for those who need it</div>
+      <div class="panel-title">CV &amp; Work</div>
+      <div class="panel-sub">What I do, what I know, what I've built.</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-eyeline">Current role</div>
+        <div class="card-title">Product &amp; Analytics, Razorpay</div>
+        <div class="card-body">Doing AI tooling, core analytics, ML, and experimentation — finding signals in noise and making decisions that matter.</div>
+        <div style="margin-top:10px;"><span class="tag yellow">Current</span></div>
+      </div>
+      <div class="card mid">
+        <div class="card-eyeline">Previous roles</div>
+        <div class="card-title">Before Razorpay</div>
+        <div class="card-body">Product Analyst at Bijak (Series B agri marketplace) and Business Analyst at Porter — working on engagement, growth, booking experience, and allocation.</div>
+        <div style="margin-top:10px;"><span class="tag">Bijak</span><span class="tag">Porter</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="card-eyeline">Education</div>
+      <div class="panel-title" style="font-size:26px;">BITS Pilani, Goa &mdash; 2016&ndash;2020</div>
+      <div class="rule"></div>
+    </div>
+    <div class="panel">
+      <div class="card-eyeline">Skills</div>
+      <div class="panel-title" style="font-size:26px;">What I'm Good At</div>
+      <div class="rule"></div>
+      <div class="body-text">Working with AI, doing experiments, finding insights, asking the right questions.</div>
+      <div style="margin-top:12px;">
+        <span class="tag yellow">AI</span>
+        <span class="tag yellow">Experimentation</span>
+        <span class="tag yellow">Insights</span>
+        <span class="tag yellow">Asking the Right Questions</span>
+      </div>
+      <div style="margin-top:16px;">
+        <a href="resume-2026-mar.pdf" class="yellow-btn" download="Akshat_Vijayvargia_CV.pdf">Download CV</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="section-books">
+    <div class="panel dark">
+      <div class="caption">Learning new things &amp; reinforcing the old ones that matter</div>
+      <div class="panel-title">Books on the Top of My Mind</div>
+      <div class="panel-sub">Recent five. What I think of them.</div>
+    </div>
+    <div class="panel">
+      <div class="list-item">
+        <div class="list-num">01</div>
+        <div>
+          <div class="list-title">Zero to Scale</div>
+          <div class="list-sub">Arindam Paul</div>
+          <div class="list-note">The distribution and GTM playbook I've been looking for. Currently reading.</div>
+          <div class="list-tags"><span class="tag yellow">Distribution</span><span class="tag yellow">GTM</span><span class="tag">Currently Reading</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">02</div>
+        <div>
+          <div class="list-title">The Psychology of Money</div>
+          <div class="list-sub">Morgan Housel</div>
+          <div class="list-note">A reread. Gets better each time — the behaviour around money is more interesting than the money itself.</div>
+          <div class="list-tags"><span class="tag yellow">Finance</span><span class="tag yellow">Behaviour</span><span class="tag">Reread</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">03</div>
+        <div>
+          <div class="list-title">The Creative Act</div>
+          <div class="list-sub">Rick Rubin</div>
+          <div class="list-note">On creativity, process, and what it means to make something. Currently reading.</div>
+          <div class="list-tags"><span class="tag yellow">Creativity</span><span class="tag yellow">Process</span><span class="tag">Currently Reading</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">04</div>
+        <div>
+          <div class="list-title">Emotional Intelligence</div>
+          <div class="list-sub">Daniel Goleman</div>
+          <div class="list-note">On the science of self-awareness, empathy, and why EQ matters as much as IQ.</div>
+          <div class="list-tags"><span class="tag yellow">Psychology</span><span class="tag yellow">EQ</span><span class="tag">To Read</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">05</div>
+        <div>
+          <div class="list-title">When Breath Becomes Air</div>
+          <div class="list-sub">Paul Kalanithi</div>
+          <div class="list-note">A memoir about mortality and meaning. One of those books that stays with you.</div>
+          <div class="list-tags"><span class="tag yellow">Memoir</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COURSES -->
+  <div class="section" id="section-courses">
+    <div class="panel mid">
+      <div class="caption">What I'm studying, what's queued, what I keep putting off</div>
+      <div class="panel-title">Courses I'm Into</div>
+      <div class="panel-sub">School's never over.</div>
+    </div>
+    <div class="panel">
+      <div class="list-item">
+        <div class="list-num">01</div>
+        <div>
+          <div class="list-title">Growth 101</div>
+          <div class="list-sub">Anthropic</div>
+          <div class="list-note">Fundamentals of product growth — acquisition, retention, and the loops that drive compounding.</div>
+          <div class="list-tags"><span class="tag yellow">Growth</span><span class="tag">Anthropic</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">02</div>
+        <div>
+          <div class="list-title">Create a Go-to-Market Plan</div>
+          <div class="list-sub">LinkedIn Learning</div>
+          <div class="list-note">How to take a product to market — from positioning and messaging to channel strategy.</div>
+          <div class="list-tags"><span class="tag yellow">GTM</span><span class="tag">LinkedIn Learning</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">03</div>
+        <div>
+          <div class="list-title">Value-Based Pricing</div>
+          <div class="list-sub">LinkedIn Learning</div>
+          <div class="list-note">Pricing products on the value they deliver.</div>
+          <div class="list-tags"><span class="tag yellow">Pricing</span><span class="tag">LinkedIn Learning</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">04</div>
+        <div>
+          <div class="list-title">PM with Claude Code</div>
+          <div class="list-sub">Anthropic</div>
+          <div class="list-note">Using Claude Code as a product manager — scoping, building, and shipping faster with AI.</div>
+          <div class="list-tags"><span class="tag yellow">AI</span><span class="tag yellow">Product</span><span class="tag">Anthropic</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">05</div>
+        <div>
+          <div class="list-title">Become a Product Manager</div>
+          <div class="list-sub">LinkedIn Learning</div>
+          <div class="list-note">End-to-end PM fundamentals — discovery, prioritisation, roadmapping, and stakeholder management.</div>
+          <div class="list-tags"><span class="tag yellow">Product</span><span class="tag">LinkedIn Learning</span></div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-num">06</div>
+        <div>
+          <div class="list-title">Agentic AI</div>
+          <div class="list-sub">Udemy</div>
+          <div class="list-note">Building AI agents that can plan, use tools, and act autonomously — beyond single-shot prompting.</div>
+          <div class="list-tags"><span class="tag yellow">AI</span><span class="tag yellow">Agents</span><span class="tag">Udemy</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span id="reading-timer"></span>
+    <div class="footer-text">Made with &#10084;&#65039; in Blr</div>
+  </div>
+
+</div>
+
+
+<script>
+var TABS = ['about','projects','boring','books','courses'];
+
+/* ── TAB SWITCHING ── */
+function typeClick() {
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    /* Typewriter key: sharp transient + quick decay */
+    var buf = ctx.createBuffer(1, ctx.sampleRate * 0.08, ctx.sampleRate);
+    var data = buf.getChannelData(0);
+    for (var i = 0; i < data.length; i++) {
+      var t = i / ctx.sampleRate;
+      /* click body: noise burst with exponential decay */
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-t * 180) * 0.55;
+      /* add a short tonal component for the 'clack' */
+      data[i] += Math.sin(2 * Math.PI * 1200 * t) * Math.exp(-t * 400) * 0.2;
+    }
+    var src = ctx.createBufferSource();
+    var gain = ctx.createGain();
+    gain.gain.value = 0.35;
+    src.buffer = buf;
+    src.connect(gain);
+    gain.connect(ctx.destination);
+    src.start();
+  } catch(e) {}
+}
+
+function switchTab(id) {
+  for (var i = 0; i < TABS.length; i++) {
+    var sec = document.getElementById('section-' + TABS[i]);
+    sec.style.display = (TABS[i] === id) ? 'flex' : 'none';
+  }
+  var btns = document.getElementsByClassName('nav-btn');
+  for (var j = 0; j < btns.length; j++) {
+    var fn = btns[j].getAttribute('onclick');
+    btns[j].className = (fn && fn.indexOf(id) !== -1) ? 'nav-btn active' : 'nav-btn';
+  }
+  window.scrollTo(0, 0);
+  typeClick();
+}
+
+/* ── FEATURE 1: INK TRAIL ── */
+var lastDrop = 0;
+document.addEventListener('mousemove', function(e) {
+  var now = Date.now();
+  if (now - lastDrop < 40) return;
+  lastDrop = now;
+  var d = document.createElement('div');
+  d.className = 'ink-drop';
+  d.style.left = e.clientX + 'px';
+  d.style.top  = e.clientY + 'px';
+  /* randomise size slightly */
+  var sz = (2 + Math.random() * 4).toFixed(1) + 'px';
+  d.style.width  = sz;
+  d.style.height = sz;
+  document.body.appendChild(d);
+  setTimeout(function() { d.parentNode && d.parentNode.removeChild(d); }, 700);
+});
+
+/* ── FEATURE 3: TYPEWRITER on name ── */
+(function() {
+  var el = document.getElementById('site-name');
+  var lines = ['Akshat', 'Vijayvargia'];
+  var full = lines[0] + '\n' + lines[1];
+  var idx = 0;
+  var cur = document.createElement('span');
+  cur.className = 'typewriter-cursor';
+  cur.innerHTML = '&nbsp;';
+  el.appendChild(cur);
+
+  function type() {
+    if (idx <= full.length) {
+      var txt = full.slice(0, idx);
+      el.innerHTML = txt.replace('\n', '<br>');
+      el.appendChild(cur);
+      idx++;
+      setTimeout(type, idx === 1 ? 400 : 55 + Math.random() * 35);
+    } else {
+      /* blink for 1.5s then remove cursor */
+      setTimeout(function() {
+        cur.parentNode && cur.parentNode.removeChild(cur);
+      }, 1500);
+    }
+  }
+  setTimeout(type, 200);
+})();
+
+/* ── FEATURE 9: READING TIMER ── */
+(function() {
+  var start = Date.now();
+  var shown = false;
+  var timer = document.getElementById('reading-timer');
+  setInterval(function() {
+    var mins = Math.floor((Date.now() - start) / 60000);
+    var secs = Math.floor(((Date.now() - start) % 60000) / 1000);
+    if ((Date.now() - start) >= 10000 && !shown) {
+      shown = true;
+      timer.style.display = 'block';
+    }
+    if (shown) {
+      timer.textContent = 'you\'ve been here ' + mins + 'm ' + secs + 's';
+    }
+  }, 1000);
+})();
+
+/* Init */
+switchTab('about');
+</script>
+</body>
+</html>
